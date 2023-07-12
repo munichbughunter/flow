@@ -92,7 +92,7 @@ func (g *Graph[T]) NodeList(id ...int64) ([]*Node[T], error) {
 	for i, v := range id {
 		node, err := g.Node(v)
 		if err != nil {
-			return nil, nil, fmt.Errorf("id: %d. error: %w", v, err)
+			return nil, fmt.Errorf("id: %d. error: %w", v, err)
 		}
 
 		nodes[i] = node
