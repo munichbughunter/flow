@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/grafana/flow/pipeline"
+	"github.com/munichbughunter/flow/pipeline"
 )
 
 // ensurer provides a pipeline.StepWalkFunc that ensures that the steps that it receives are ran in the order provided.

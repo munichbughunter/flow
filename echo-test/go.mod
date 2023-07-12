@@ -2,7 +2,7 @@ module echo-test
 
 go 1.20
 
-require github.com/munichbughunter/flow v0.1.0
+require github.com/munichbughunter/flow v0.2.0
 
 require (
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
