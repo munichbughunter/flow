@@ -45,3 +45,34 @@ func (g *Graph[T]) AddNode(id int64, v T) error {
 	g.Nodes = append(g.Nodes, node)
 	return nil
 }
+
+func (g *Graph[T]) AddEdge(from, to int64) error {
+	var fromNode, toNode *Node[T]
+
+	for i, v := range g.Nodes {
+		if v.ID == from {
+			fromNode = &g.Nodes[i]
+		}
+		if v.ID == to {
+			toNode = &g.Nodes[i]
+		}
+		if fromNode != nil && toNode != nil {
+			break
+		}
+	}
+
+	if fromNode == nil {
+		return fmt.Errorf("%w. id: %d", ErrorNotFound, from)
+	}
+	if toNode == nil {
+		return fmt.Errorf("%w. id: %d", ErrorNotFound, to)
+	}
+
+	edges := g.Edges[from]
+	g.Edges[from] = append(edges, Edge[T]{
+		From: fromNode,
+		To:   toNode,
+	})
+
+	return nil
+}
