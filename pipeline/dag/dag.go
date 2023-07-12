@@ -100,3 +100,17 @@ func (g *Graph[T]) NodeList(id ...int64) ([]*Node[T], error) {
 
 	return nodes, nil
 }
+
+func (g *Graph[T]) Adj(id int64) []*Node[T] {
+	edges, ok := g.Edges[id]
+	if !ok {
+		return nil
+	}
+
+	siblings := make([]*Node[T], len(edges))
+	for i := range edges {
+		siblings[i] = edges[i].To
+	}
+
+	return siblings
+}
