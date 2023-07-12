@@ -1,6 +1,10 @@
 package pipeline
 
-import "errors"
+import (
+	"errors"
+	"flow/pipeline/dag"
+	// "github.com/munichbughunter/flow/pipeline/dag"
+)
 
 var (
 	ErrorNoStepProvider    = errors.New("no step in the graph provides a required argument")
