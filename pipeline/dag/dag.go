@@ -86,3 +86,17 @@ func (g *Graph[T]) Node(id int64) (*Node[T], error) {
 
 	return nil, fmt.Errorf("id: %d. error: %w", id, ErrorNotFound)
 }
+
+func (g *Graph[T]) NodeList(id ...int64) ([]*Node[T], error) {
+	nodes := make([]*Node[T], len(id))
+	for i, v := range id {
+		node, err := g.Node(v)
+		if err != nil {
+			return nil, nil, fmt.Errorf("id: %d. error: %w", v, err)
+		}
+
+		nodes[i] = node
+	}
+
+	return nodes, nil
+}
