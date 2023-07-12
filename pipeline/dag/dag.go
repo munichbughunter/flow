@@ -175,3 +175,49 @@ func (g *Graph[T]) visit(id int64, visitFunc VisitFunc[T]) error {
 
 	return nil
 }
+
+func (g *Graph[T]) BreadthFirstSearch(id int64, visitFunc VisitFunc[T]) error {
+	if visitFunc == nil {
+		return ErrorNoVisitFunc
+	}
+
+	g.resetVisited()
+
+	queue := []int64{id}
+	if err := g.visit(id, visitFunc); err != nil {
+		if errors.Is(err, ErrorBreak) {
+			return nil
+		}
+		return err
+	}
+
+	i := 0
+
+	for i < len(queue) {
+		id = queue[i]
+		for _, v := range g.Adj(id) {
+			if g.visited[v.ID] {
+				continue
+			}
+			queue = append(queue, v.ID)
+			if err := g.visit(v.ID, visitFunc); err != nil {
+				if errors.Is(err, ErrorBreak) {
+					return nil
+				}
+
+				return err
+			}
+		}
+		i++
+	}
+	return nil
+}
+
+// New creates a new Graph with nodes that contain data with type T.
+func New[T any]() *Graph[T] {
+	return &Graph[T]{
+		Nodes:   []Node[T]{},
+		Edges:   map[int64][]Edge[T]{},
+		visited: map[int64]bool{},
+	}
+}
