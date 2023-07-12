@@ -114,3 +114,64 @@ func (g *Graph[T]) Adj(id int64) []*Node[T] {
 
 	return siblings
 }
+
+func (g *Graph[T]) resetVisited() {
+	for _, v := range g.Nodes {
+		g.visited[v.ID] = false
+	}
+}
+
+type VisitFunc[T any] func(n *Node[T]) error
+
+func (g *Graph[T]) dfs(id int64, visitFunc VisitFunc[T]) error {
+	if !g.visited[id] {
+		if err := g.visit(id, visitFunc); err != nil {
+			if errors.Is(err, ErrorBreak) {
+				return nil
+			}
+
+			return err
+		}
+	}
+
+	adj := g.Adj(id)
+	if adj == nil {
+		return nil
+	}
+
+	for _, v := range adj {
+		if err := g.dfs(v.ID, visitFunc); err != nil {
+			if errors.Is(err, ErrorBreak) {
+				return nil
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (g *Graph[T]) DepthFirstSearch(start int64, visitFunc VisitFunc[T]) error {
+	if visitFunc == nil {
+		return ErrorNoVisitFunc
+	}
+
+	g.resetVisited()
+
+	return g.dfs(start, visitFunc)
+}
+
+func (g *Graph[T]) visit(id int64, visitFunc VisitFunc[T]) error {
+	g.visited[id] = true
+
+	n, err := g.Node(id)
+	if err != nil {
+		return err
+	}
+
+	if err := visitFunc(n); err != nil {
+		return err
+	}
+
+	return nil
+}
