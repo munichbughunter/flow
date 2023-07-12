@@ -76,3 +76,13 @@ func (g *Graph[T]) AddEdge(from, to int64) error {
 
 	return nil
 }
+
+func (g *Graph[T]) Node(id int64) (*Node[T], error) {
+	for i, v := range g.Nodes {
+		if v.ID == id {
+			return &g.Nodes[i], nil
+		}
+	}
+
+	return nil, fmt.Errorf("id: %d. error: %w", id, ErrorNotFound)
+}
