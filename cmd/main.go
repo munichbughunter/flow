@@ -9,9 +9,9 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/munichbughunter/flow/cmd/commands"
-	"github.com/munichbughunter/flow/cmdutil"
-	"github.com/munichbughunter/flow/plog"
+	"github.com/grafana/flow/cmd/commands"
+	"github.com/grafana/flow/cmdutil"
+	"github.com/grafana/flow/plog"
 	"github.com/sirupsen/logrus"
 )
 

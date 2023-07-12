@@ -13,16 +13,24 @@ var (
 	ErrorBreak = errors.New("break will stop the depth first search without an error")
 )
 
+// Node is a graph node that has an ID and data.
+// Nodes are connected by Edges.
 type Node[T any] struct {
 	ID    int64
 	Value T
 }
 
+// Edge is a connection from one node to another.
+// Because this is a Directed graph, the edge has a direction.
+// A connection from 'node A' to 'node B' is not the same as a connection from 'node B' to 'node A'.
 type Edge[T any] struct {
 	From *Node[T]
 	To   *Node[T]
 }
 
+// Graph is a data structure that stores a list of Nodes (data) and Edges that connect nodes.
+// Because it is a Directed graph, the edges connect from a node to another node, and the connection is not equal if reversed.
+// Because it is an Acyclic graph, the nodes can not be connected in a loop or a cycle. If the nodes/edges look like (0 -> 1 -> 2 -> 0), then that is a cycle and is not allowed.
 type Graph[T any] struct {
 	Nodes []Node[T]
 	Edges map[int64][]Edge[T]
@@ -30,6 +38,7 @@ type Graph[T any] struct {
 	visited map[int64]bool
 }
 
+// AddNode adds a new node to the graph with the given ID and data (v).
 func (g *Graph[T]) AddNode(id int64, v T) error {
 	node := Node[T]{
 		ID:    id,
@@ -46,6 +55,7 @@ func (g *Graph[T]) AddNode(id int64, v T) error {
 	return nil
 }
 
+// AddEdge adds a new node from node with the ID 'from' to the node with the ID 'to'.
 func (g *Graph[T]) AddEdge(from, to int64) error {
 	var fromNode, toNode *Node[T]
 
@@ -64,10 +74,10 @@ func (g *Graph[T]) AddEdge(from, to int64) error {
 	if fromNode == nil {
 		return fmt.Errorf("%w. id: %d", ErrorNotFound, from)
 	}
+
 	if toNode == nil {
 		return fmt.Errorf("%w. id: %d", ErrorNotFound, to)
 	}
-
 	edges := g.Edges[from]
 	g.Edges[from] = append(edges, Edge[T]{
 		From: fromNode,
@@ -77,6 +87,8 @@ func (g *Graph[T]) AddEdge(from, to int64) error {
 	return nil
 }
 
+// Node returns the node with the given ID.
+// If no node is found, ErrorNotFound is returned.
 func (g *Graph[T]) Node(id int64) (*Node[T], error) {
 	for i, v := range g.Nodes {
 		if v.ID == id {
@@ -87,6 +99,8 @@ func (g *Graph[T]) Node(id int64) (*Node[T], error) {
 	return nil, fmt.Errorf("id: %d. error: %w", id, ErrorNotFound)
 }
 
+// Nodes returns the nodes with the given IDs.
+// If one of the nodes is not found, ErrorNotFound is returned.
 func (g *Graph[T]) NodeList(id ...int64) ([]*Node[T], error) {
 	nodes := make([]*Node[T], len(id))
 	for i, v := range id {
@@ -101,6 +115,8 @@ func (g *Graph[T]) NodeList(id ...int64) ([]*Node[T], error) {
 	return nodes, nil
 }
 
+// Adj returns nodes with edges that start at the provided node (n) (Where 'From' is this node).
+// This function does not return nodes with edges that end at the provided node (where 'To' is this node).
 func (g *Graph[T]) Adj(id int64) []*Node[T] {
 	edges, ok := g.Edges[id]
 	if !ok {
@@ -151,6 +167,10 @@ func (g *Graph[T]) dfs(id int64, visitFunc VisitFunc[T]) error {
 	return nil
 }
 
+// DepthFirstSearch performs a depth-first search and calls the provided visitFunc callback for every node.
+// 'visitFunc' is not called more than once per node.
+// If 'visitFunc' returns an error, then so will this function.
+// If 'visitFunc' returns ErrorBreak, then this function will return nil and will stop visiting nodes.
 func (g *Graph[T]) DepthFirstSearch(start int64, visitFunc VisitFunc[T]) error {
 	if visitFunc == nil {
 		return ErrorNoVisitFunc

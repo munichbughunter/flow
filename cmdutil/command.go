@@ -43,7 +43,7 @@ func StepCommand(opts CommandOpts) ([]string, error) {
 		}
 	}
 
-	name := "scribe"
+	name := "flow"
 
 	if p := opts.CompiledPipeline; p != "" {
 		name = p
@@ -91,7 +91,7 @@ func PipelineCommand(opts PipelineCommandOpts) ([]string, error) {
 		}
 	}
 
-	name := "scribe"
+	name := "flow"
 
 	if p := opts.CompiledPipeline; p != "" {
 		name = p

@@ -13,12 +13,12 @@ import (
 )
 
 type RunOpts struct {
-	// Version specifies the scribe version to run.
-	// This value is used in generating the scribe image. A value will be provided if using the scribe CLI.
+	// Version specifies the flow version to run.
+	// This value is used in generating the flow image. A value will be provided if using the flow CLI.
 	// If no value is provided, then it will be replaced with "latest".
 	Version string
 
-	// Path specifies the path to the scribe pipeline.
+	// Path specifies the path to the flow pipeline.
 	// This value is assumed to be "." if not provided.
 	// This is not the same as the "Path" argument for the pipeline itself, which is required and used for code / config generation.
 	Path string
@@ -36,11 +36,11 @@ type RunOpts struct {
 	// If it is not provided, it defaults to "os.Stdin"
 	Stdin io.Reader
 
-	// Args are arguments that are passed to the scribe pipeline
+	// Args are arguments that are passed to the flow pipeline
 	Args *args.PipelineArgs
 }
 
-// Run handles the default scribe command, "scribe run".
+// Run handles the default flow command, "flow run".
 // The run command attempts to run the pipeline by using "go run ...".
 // This function will exit the program if it encounters an error.
 // TODO: there is a function in `cmdutil` that should be able to create this command to run.
@@ -93,7 +93,7 @@ func Run(ctx context.Context, opts *RunOpts) *exec.Cmd {
 		cmdArgs = append(cmdArgs, "--step", strconv.FormatInt(*args.Step, 10))
 	}
 
-	logger.Infoln("Running scribe pipeline with command", append([]string{"go"}, cmdArgs...))
+	logger.Infoln("Running flow pipeline with command", append([]string{"go"}, cmdArgs...))
 
 	cmd := exec.CommandContext(ctx, "go", cmdArgs...)
 	cmd.Stdout = stdout

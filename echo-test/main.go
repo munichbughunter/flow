@@ -22,7 +22,7 @@ func StepEcho() pipeline.Step {
 }
 
 func main() {
-	sw := scribe.New("test-pipeline")
+	sw := flow.New("test-pipeline")
 	defer sw.Done()
 
 	sw.Add(StepEcho())

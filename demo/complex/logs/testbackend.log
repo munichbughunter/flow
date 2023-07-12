@@ -1,0 +1,30 @@
+Testing backend...
+ok  	github.com/munichbughunter/flow	(cached)
+?   	github.com/munichbughunter/flow/ci	[no test files]
+?   	github.com/munichbughunter/flow/ci/docker	[no test files]
+?   	github.com/munichbughunter/flow/demo/basic	[no test files]
+?   	github.com/munichbughunter/flow/demo/complex	[no test files]
+?   	github.com/munichbughunter/flow/docker	[no test files]
+?   	github.com/munichbughunter/flow/exec	[no test files]
+?   	github.com/munichbughunter/flow/fs	[no test files]
+?   	github.com/munichbughunter/flow/git	[no test files]
+?   	github.com/munichbughunter/flow/git/x	[no test files]
+?   	github.com/munichbughunter/flow/golang	[no test files]
+?   	github.com/munichbughunter/flow/golang/x	[no test files]
+?   	github.com/munichbughunter/flow/makefile	[no test files]
+?   	github.com/munichbughunter/flow/plumbing	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/cmd	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/cmd/commands	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/cmdutil	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/pipeline	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/pipeline/clients/cli	[no test files]
+ok  	github.com/munichbughunter/flow/plumbing/pipeline/clients/docker	(cached)
+ok  	github.com/munichbughunter/flow/plumbing/pipeline/clients/drone	(cached)
+?   	github.com/munichbughunter/flow/plumbing/plog	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/schemas/drone	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/stringutil	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/syncutil	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/testutil	[no test files]
+?   	github.com/munichbughunter/flow/plumbing/wrappers	[no test files]
+?   	github.com/munichbughunter/flow/yarn	[no test files]
+Done testing backend
