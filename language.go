@@ -3,6 +3,7 @@ package main
 type Language interface {
 	GetDockerImage() string
 	GetBuildScript() string
+	GetFileExtension() string
 }
 
 type Python struct{}
@@ -18,6 +19,10 @@ func (p Python) GetBuildScript() string {
     - python ./flow/flow.py`
 }
 
+func (p Python) GetFileExtension() string {
+	return ".py"
+}
+
 type TypeScript struct{}
 
 func (ts TypeScript) GetDockerImage() string {
@@ -31,6 +36,10 @@ func (ts TypeScript) GetBuildScript() string {
     - npm test`
 }
 
+func (ts TypeScript) GetFileExtension() string {
+	return ".mts"
+}
+
 type Golang struct{}
 
 func (golang Golang) GetDockerImage() string {
@@ -41,4 +50,8 @@ func (golang Golang) GetBuildScript() string {
 	return `script:
     - go get dagger-io
     - go run ./flow/flow.go`
+}
+
+func (golang Golang) GetFileExtension() string {
+	return ".go"
 }
