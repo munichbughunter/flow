@@ -32,7 +32,11 @@ build:
 		if err != nil {
 			panic(err)
 		}
-
-		fmt.Println(".gitlab-ci.yml file created successfully")
 	}
+
+	err := os.WriteFile(".gitlab-ci.yml", []byte(gitlabYml), 0666)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("gitlab-ci.yml file created successfully")
 }

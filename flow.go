@@ -3,6 +3,7 @@ package main
 import "flag"
 
 func main() {
+	flowPath := flag.String("./flow", "", "Path to Flow Folder")
 	init := flag.Bool("init", false, "Initialize flow")
 	createGitlabFile := flag.Bool("create-gitlab-file", false, "Generate gitlab.yml file")
 	help := flag.Bool("help", false, "Flow help")
@@ -25,13 +26,15 @@ func main() {
 		// Log out that no language was specified... ?
 	}
 
-	if *init {
+	if *flowPath != "" {
+		// RunFlowPipeline(*flowPath)
+	} else if *init {
 		InitFlow(lang)
 	} else if *createGitlabFile {
 		GenerateGitlabYml(lang)
 	} else if *help {
 		PrintHelp()
 	} else {
-		panic("Command not specified! Please use flow --help!")
+
 	}
 }
