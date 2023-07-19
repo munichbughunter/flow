@@ -1,0 +1,9 @@
+// eslint-disable-next-line no-unused-vars
+import Client, { Container } from "@dagger.io/dagger"
+
+export async function buildBaseImage(client: Client): Promise<Container> {
+    return await client.container()
+     .from("node:16")
+     .withDirectory("src/", client.host().directory("."))
+     .withWorkdir("src/")
+}

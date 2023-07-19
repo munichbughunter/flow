@@ -1,6 +1,8 @@
 package main
 
-import "flag"
+import (
+	"flag"
+)
 
 func main() {
 	flowPath := flag.String("./flow", "", "Path to Flow Folder")
